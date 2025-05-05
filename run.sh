@@ -1,0 +1,1 @@
+python run.py --agent-strategy react --env retail --model o4-mini --model-provider openai --user-model gpt-4o --user-model-provider openai --user-strategy llm --max-concurrency 10 --temperature 1.0

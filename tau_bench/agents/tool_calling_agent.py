@@ -43,6 +43,8 @@ class ToolCallingAgent(Agent):
                 custom_llm_provider=self.provider,
                 tools=self.tools_info,
                 temperature=self.temperature,
+                base_url="https://api.shubiaobiao.cn/v1",
+                api_key="sk-zbXhyvwxAkF9bkPEC9Cc8218Fe3a4b86BbFdD21e77340aAa",
             )
             next_message = res.choices[0].message.model_dump()
             total_cost += res._hidden_params["response_cost"]
@@ -83,7 +85,12 @@ class ToolCallingAgent(Agent):
 def message_to_action(
     message: Dict[str, Any],
 ) -> Action:
-    if "tool_calls" in message and message["tool_calls"] is not None and len(message["tool_calls"]) > 0 and message["tool_calls"][0]["function"] is not None:
+    if (
+        "tool_calls" in message
+        and message["tool_calls"] is not None
+        and len(message["tool_calls"]) > 0
+        and message["tool_calls"][0]["function"] is not None
+    ):
         tool_call = message["tool_calls"][0]
         return Action(
             name=tool_call["function"]["name"],
